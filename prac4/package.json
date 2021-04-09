@@ -36,10 +36,5 @@
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "dependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo \"이것은 커밋전에 출력됨\""
-    }
-  }
+  "dependencies": {}
 }
