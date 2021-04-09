@@ -1,4 +1,5 @@
 import "./style.css";
+import model from "./model";
 
 // console.log("aaaaaaaaaaaaaa", process.env.NODE_ENV);
 // console.log("bbbbbbbbbbbbbb", TWO);
@@ -12,6 +13,9 @@ const alert2 = (msg) => window.alert(msg);
 const alert3 = (msg) => window.alert(msg);
 const alert4 = (msg) => window.alert(msg);
 
-const promise = new Promise();
+// const promise = new Promise();
+
+const mod = model.get();
+console.log(mod);
 
 console.log("hello world");

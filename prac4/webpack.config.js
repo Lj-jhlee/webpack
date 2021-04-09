@@ -5,6 +5,7 @@ const banner = require("./custom/banner");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const apiMocker = require("connect-api-mocker");
 
 module.exports = {
   mode: "development",
@@ -103,15 +104,19 @@ module.exports = {
     historyApiFallback: true, // 히스토리 API를 사용하는 SPA 개발시 설정, 404 발생시 index.html로 리다이렉트
     before: (app, server, compiler) => {
       // devServer.berfor에 추가하는것이 미들웨어, before에 설정한 미들웨어는 express에 의해 app 객체가 인자로 전달 ( express instance )
-      app.get("/api/keywords", (req, res) => {
-        // 라우터 컨트롤러, 컨트롤러는 (req와 res를 받음), 이를 통해 개발 초기 ( api 구현 전 ) 프론트에서 서버 응답을 받아올 수 있음
-        res.json([
-          { keyword: "이탈리아" },
-          { keyword: "세프의요리" },
-          { keyword: "제철" },
-          { keyword: "홈파티" },
-        ]);
-      });
+      // app.get("/api/keywords", (req, res) => {
+      //   // 라우터 컨트롤러, 컨트롤러는 (req와 res를 받음), 이를 통해 개발 초기 ( api 구현 전 ) 프론트에서 서버 응답을 받아올 수 있음
+      //   res.json([
+      //     { keyword: "이탈리아" },
+      //     { keyword: "세프의요리" },
+      //     { keyword: "제철" },
+      //     { keyword: "홈파티" },
+      //   ]);
+      // });
+      app.use(apiMocker("/api", "mocks/api")); // api 갯수가 많아지면 mockup file로 관리
+    },
+    proxy: {
+      "/api": "http://localhost:8081",
     },
   },
 };
